@@ -3,17 +3,16 @@
     <!-- hero -->
     <div class="hero">
 
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-        
+        <div class="slick-container">
+
          <?php    while ( have_rows('slider_block') ) : the_row(); 
              
              $link = get_sub_field('link_learn_more');
              $image = get_sub_field('choose_the_image_for_slide');
 
              ?>
-
-             <div class="swiper-slide" style="background-image: url(<?= $image; ?>)">
+            <div>
+             <div class="slick-slide" style="background-image: url(<?= $image; ?>)">
 
                  <!-- hero__info -->
                  <div class="hero__info">
@@ -25,16 +24,12 @@
                  </div>
                  <!-- /hero__info -->
 
+                </div>
              </div>
-                
+
                 <?php
 
             endwhile; ?>
-
-            </div>
-
-            <!-- Add Pagination -->
-            <div class="swiper-pagination"></div>
 
         </div>
 

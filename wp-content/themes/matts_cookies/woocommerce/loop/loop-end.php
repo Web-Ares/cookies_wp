@@ -1,8 +1,8 @@
 <?php
 /**
- * Product Loop Start
+ * Product Loop End
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/loop/loop-start.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/loop/loop-end.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -16,4 +16,11 @@
  * @version     2.0.0
  */
 ?>
-<ul class="products">
+</div>
+<!-- /slick-container -->
+
+</div>
+<!-- /products-cookies__items -->
+
+</div>
+<!--/products-cookies__layout -->

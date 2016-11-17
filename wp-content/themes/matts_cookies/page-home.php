@@ -58,6 +58,20 @@ get_header(); ?>
     </div>
     <!-- /store-finder -->
 
+
+    <?php
+    $tmp = $post;
+    $arg = array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'post_visibility' => 'public'
+    );
+
+    $products = new WP_Query($arg);
+
+    if($products->have_posts()) {  ?>
+
     <!-- products-cookies -->
     <div class="products-cookies slides">
 
@@ -66,56 +80,38 @@ get_header(); ?>
         <!-- products-cookies__layout -->
         <div class="products-cookies__layout">
 
-
-            <?php
-            $tmp = $post;
-            $arg = array(
-                'post_type' => 'product',
-                'posts_per_page' => -1,
-                'post_status' => 'publish',
-                'post_visibility' => 'public'
-            );
-
-            $products = new WP_Query($arg);
-
-            if($products->have_posts()){ ?>
-
             <!-- products-cookies__items -->
             <div class="products-cookies__items">
 
-                <!-- swiper-container -->
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
+                <!-- slick-container -->
+                <div class="slick-container">
 
-                        <?php while ( $products->have_posts()) :
-                            $products->the_post();
-                            $id = get_the_ID();
-                            $link = get_the_permalink($id);
-                            $title = get_the_title($id);
-                            $thumb_id = get_post_thumbnail_id();
-                            $thumb_url = wp_get_attachment_image_src($thumb_id,'full')[0];
-                            ?>
-                            <?php wc_get_template('content-product.php'); ?>
-                        <?php  endwhile; } ?>
+                <?php while ( $products->have_posts()) :
 
-                    </div>
+                $products->the_post(); ?>
+
+                <?php wc_get_template('content-product.php'); ?>
+
+                <?php endwhile; ?>
 
                 </div>
+                <!-- /slick-container -->
 
             </div>
             <!-- /products-cookies__items -->
-
-            <?php
-
-
-            $post = $tmp;
-            ?>
 
         </div>
         <!--/products-cookies__layout -->
 
     </div>
     <!-- /products-cookies -->
+
+        <?php
+
+    }
+    $post = $tmp;
+    ?>
+
 
 </div>
 <!-- /site__content -->
