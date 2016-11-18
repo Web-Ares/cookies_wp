@@ -23,12 +23,12 @@
 
                         <!-- our-cookies__info -->
                         <div class="our-cookies__info">
-
-                            <h2 class="site__title"><?= $title;  ?></h2>
-                            <div class="our-cookies__pic" style="background-image: url(<?= $image; ?>)"></div>
-                            <p><?= $text; ?></p>
-                            <a href="<?= $link; ?>" class="btn">BUY NOW</a>
-
+                            <div>
+                                <h2 class="site__title"><?= $title;  ?></h2>
+                                <div class="our-cookies__pic" style="background-image: url(<?= $image; ?>)"></div>
+                                <p><?= $text; ?></p>
+                                <a href="<?= $link; ?>" class="btn">BUY NOW</a>
+                            </div>
                         </div>
                         <!-- /our-cookies__info -->
 

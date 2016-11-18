@@ -57,8 +57,7 @@ get_header(); ?>
 
     </div>
     <!-- /store-finder -->
-
-
+    
     <?php
     $tmp = $post;
     $arg = array(

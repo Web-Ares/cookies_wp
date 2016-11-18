@@ -113,7 +113,11 @@
     
 <?php if(is_front_page()){
     $class = '';
-} else {
+}
+elseif(is_404()){
+    $class = ' site_inner site_no-footer';
+}
+else {
     $class = ' site_inner';
 } ?>
     
@@ -133,8 +137,29 @@
         </div>
         <!-- /preloader -->
 
+        <?php
+        $cart = WC()->cart;
+        $cart_url = $cart->get_cart_url();
+        $count_products = $cart->get_cart_contents_count();
+        
+        if($count_products !=0 ){
+            $cur_fill = ' cart_fill';
+            $cart_count = "<div>$count_products items</div>";
+            $header_class= ' site__header_fill-cart';
+        } else {
+            $header_class = '';
+            $cur_fill='';   
+        }
+
+//        echo $cart->get_cart_total();
+        if(isset($_GET['em'])){
+            $cart->empty_cart();
+        }
+
+        ?>
+
         <!-- site__header -->
-        <header class="site__header">
+        <header class="site__header<?= $header_class; ?>">
 
             <!-- site__header-layout -->
             <div class="site__header-layout">
@@ -156,10 +181,12 @@
                <?php  } ?>
 
                 <!-- cart -->
-                <a href="#" class="cart">
+                <a href="<?= $cart_url; ?>" class="cart<?= $cur_fill; ?>">
                     <span></span>
+                    <?= $cart_count; ?>
                 </a>
                 <!-- /cart -->
+
 
                 <!-- site__menu-btn -->
                 <button class="site__menu-btn">
@@ -189,10 +216,10 @@
                         </ul>
                         <ul>
                             <li>
-                                <a data-href="store-finder" href="#" class="site__menu-link">STORE FINDER</a>
+                                <a href="#" class="site__menu-link">STORE FINDER</a>
                             </li>
                             <li>
-                                <a data-href="products-cookies" href="#" class="site__menu-link">SHOP</a>
+                                <a href="#" class="site__menu-link">SHOP</a>
                             </li>
                             <li>
                                 <a data-href="site" href="#" class="site__menu-link">CONTACT US</a>

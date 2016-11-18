@@ -20,66 +20,118 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+global $product;
+
+$productID = $product->get_id();
+$productTitle = $product->get_title();
+$price = $product->get_price();
+$currency = get_woocommerce_currency_symbol();
+$weight = $product->get_weight();
+$dimensions = $product->get_attribute('Prepacking type');
+if(!empty($dimensions)){
+	$dimensions = $dimensions.', ';
+}
+
 ?>
 
-<?php
-	/**
-	 * woocommerce_before_single_product hook.
-	 *
-	 * @hooked wc_print_notices - 10
-	 */
-	 do_action( 'woocommerce_before_single_product' );
+<!-- product-single -->
+<div class="product-single">
 
-	 if ( post_password_required() ) {
-	 	echo get_the_password_form();
-	 	return;
-	 }
-?>
+	<!-- product-single__layout -->
+	<div class="product-single__layout">
 
-<div itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<!-- product-single__info -->
+		<div class="product-single__info" data-id="<?= $productID; ?>">
 
-	<?php
-		/**
-		 * woocommerce_before_single_product_summary hook.
-		 *
-		 * @hooked woocommerce_show_product_sale_flash - 10
-		 * @hooked woocommerce_show_product_images - 20
-		 */
-		do_action( 'woocommerce_before_single_product_summary' );
-	?>
+			<h2 class="site__title site__title_2"><?= $productTitle; ?></h2>
 
-	<div class="summary entry-summary">
+			<!-- product-single__price -->
+			<span class="product-single__price"><?= $currency.$price ?></span>
+			<!-- /product-single__price -->
 
-		<?php
-			/**
-			 * woocommerce_single_product_summary hook.
-			 *
-			 * @hooked woocommerce_template_single_title - 5
-			 * @hooked woocommerce_template_single_rating - 10
-			 * @hooked woocommerce_template_single_price - 10
-			 * @hooked woocommerce_template_single_excerpt - 20
-			 * @hooked woocommerce_template_single_add_to_cart - 30
-			 * @hooked woocommerce_template_single_meta - 40
-			 * @hooked woocommerce_template_single_sharing - 50
-			 */
-			do_action( 'woocommerce_single_product_summary' );
-		?>
+			<?php
+			$imagesArray = array();
+			if( have_rows('gallery_block',$productID) ):
+				while ( have_rows('gallery_block',$productID) ) : the_row();
 
-	</div><!-- .summary -->
+				$imagesArray[]=get_sub_field('choose_the_iamge');
 
-	<?php
-		/**
-		 * woocommerce_after_single_product_summary hook.
-		 *
-		 * @hooked woocommerce_output_product_data_tabs - 10
-		 * @hooked woocommerce_upsell_display - 15
-		 * @hooked woocommerce_output_related_products - 20
-		 */
-		do_action( 'woocommerce_after_single_product_summary' );
-	?>
+				endwhile;
+			endif; ?>
 
-	<meta itemprop="url" content="<?php the_permalink(); ?>" />
+				<?php if(count($imagesArray)>0): ?>
 
-</div><!-- #product-<?php the_ID(); ?> -->
+					<!-- product-single__gallery -->
+					<div class="product-single__gallery">
 
-<?php do_action( 'woocommerce_after_single_product' ); ?>
+						<!-- swiper-container -->
+						<div class="swiper-container gallery__top">
+							<?php foreach ($imagesArray as $image){ ?>
+								<div class="slick-container__slide" style="background-image:url(<?= $image; ?>)" data-image="<?= $image; ?>"></div>
+							<?php } ?>
+						</div>
+						<!-- /swiper-container -->
+
+						<!-- swiper-container -->
+						<div class="swiper-container gallery__thumbs">
+							<?php foreach ($imagesArray as $image){ ?>
+								<div class="slick-container__slide" style="background-image:url(<?= $image; ?>)"></div>
+							<?php } ?>
+						</div>
+						<!-- /swiper-container -->
+					</div>
+					<!-- /product-single__gallery -->
+
+				<?php endif; ?>
+
+			<!-- product-single__items -->
+			<div class="product-single__items">
+
+				<?php
+					the_content();
+				?>
+
+				<?php if(get_field('ingridients_text')): ?>
+					<a href="#" class="product-single__show popup__open" data-popup="ingredients-info">Show Nutrition Information and Ingredients</a>
+				<?php endif; ?>
+				
+				<!-- product-single__quantity -->
+				<div class="product-single__quantity">
+					<form action="#">
+						<span>Q-ty</span>
+
+						<!-- product-single__quantity-change -->
+						<div class="count-product product-single__quantity-change">
+							<a class="count-product__btn count-product_del" href="#"><span>-</span></a>
+							<input type="number" class="count-product__input site__input" value="1">
+							<a class="count-product__btn count-product_add" href="#"><span>+</span></a>
+						</div>
+						<!-- /product-single__quantity-change -->
+
+						<?php if($product->has_weight()){ ?>
+							<span><?= $dimensions ?> <?= $weight ?>OZ</span>
+						<?php } ?>
+
+
+
+						<div>
+							<button type="submit" class="btn product-single__add"><span>ADD TO CART</span></button>
+						</div>
+
+					</form>
+				</div>
+				<!-- /product-single__quantity -->
+
+			</div>
+			<!-- /product-single__items -->
+
+		</div>
+		<!-- /product-single__info -->
+
+	</div>
+	<!-- /product-single__layout -->
+
+</div>
+<!-- /product-single -->
+
+

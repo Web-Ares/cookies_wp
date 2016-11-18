@@ -172,8 +172,7 @@
                                     <?php endif;
                                     if($lik = get_field('mail','options')):
                                     ?>
-                                    
-                                    <a href="mailto:<?= $lik; ?>" class="social-networks__item social-networks__item_instagram">
+                                    <a href="mailto:<?= $lik; ?>?subject=<?= get_field('subject_for_emails','options') ?>" class="social-networks__item social-networks__item_instagram">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 235.065 235.065" style="enable-background:new 0 0 235.065 235.065;" xml:space="preserve" width="512px" height="512px">
                                                     <g>
                                                         <g>
@@ -210,44 +209,112 @@
 <!-- /site -->
 <?php wp_footer(); ?>
 <!-- popup -->
-<div class="popup">
 
-    <!-- popup__wrap -->
-    <div class="popup__wrap">
+<?php if(is_page_template(array('page-home.php'))){ ?>
+    <div class="popup">
 
-        <!-- popup__content -->
-        <div class="popup__content popup__cookies-info">
+        <!-- popup__wrap -->
+        <div class="popup__wrap">
 
-            <!-- popup__close -->
-            <div class="popup__close">
+            <!-- popup__content -->
+            <div class="popup__content popup__cookies-info">
 
-            </div>
-            <!-- /popup__close -->
-
-            <!-- cookies-info -->
-            <div class="cookies-info">
-
-                <h2 class="site__main-title">CHOCOLATE</h2>
-
-                <!-- cookies-info__description -->
-                <div class="cookies-info__description">
-
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+                <!-- popup__close -->
+                <div class="popup__close">
 
                 </div>
-                <!-- /cookies-info__description -->
+                <!-- /popup__close -->
+
+                <!-- cookies-info -->
+                <div class="cookies-info">
+
+                    <h2 class="site__main-title">CHOCOLATE</h2>
+
+                    <!-- cookies-info__description -->
+                    <div class="cookies-info__description">
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+
+                    </div>
+                    <!-- /cookies-info__description -->
+
+                </div>
+                <!-- /cookies-info -->
 
             </div>
-            <!-- /cookies-info -->
+            <!-- /popup__content -->
 
         </div>
-        <!-- /popup__content -->
+        <!-- /popup__wrap -->
 
     </div>
-    <!-- /popup__wrap -->
+<?php } elseif(is_singular('product')){ ?>
 
-</div>
-<!-- /popup -->
+    <!-- popup -->
+    <div class="popup">
+
+        <!-- popup__wrap -->
+        <div class="popup__wrap">
+
+            <!-- popup__content -->
+            <div class="popup__content popup__ingredients-info">
+
+                <!-- popup__close -->
+                <div class="popup__close">
+
+                </div>
+                <!-- /popup__close -->
+
+                <!-- nutrition-facts -->
+                <div class="nutrition-facts">
+
+                    <h2 class="site__main-title site__main-title_3">INGREDIENTS & NUTRITION INFORMATION</h2>
+
+                    <!-- nutrition-facts__description -->
+                    <div class="nutrition-facts__description">
+                        <h2 class="site__title site__title_3"><?php the_title(); ?></h2>
+                        <?php
+                        $text = get_field('ingridients_text');
+                        $image = get_field('choose_the_ingridients_image');
+                        $link = get_field('learn_more_link');
+
+                        if($image):
+                            $attributes['alt'] = get_post_meta($image , '_wp_attachment_image_alt', true);
+
+                            $attributes['url'] = wp_get_attachment_image_src($image,'full')[0];
+
+                            $attributes['description'] = get_post($image)->post_content;
+                        ?>
+                        <div class="nutrition-facts__pic">
+                            <img src="<?= $attributes['url'] ?>" width="290" height="553" title="<?= $attributes['description'] ?>" alt="<?= $attributes['alt'] ?>">
+                        </div>
+                        <?php endif; ?>
+
+                        <?= $text; ?>
+                        <?php if($link): ?>
+                         <div class="nutrition-facts__learn">
+                            <a href="<?= $link ?>">Learn more about our quality ingredients</a>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <!-- /nutrition-facts__description -->
+
+                </div>
+                <!-- /nutrition-facts -->
+
+            </div>
+            <!-- /popup__content -->
+
+        </div>
+        <!-- /popup__wrap -->
+
+    </div>
+    <!-- /popup -->
+
+<?php } ?>
+
+
+
 
 </body>
 </html>
