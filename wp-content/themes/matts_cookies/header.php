@@ -112,7 +112,7 @@
 } ?>
     
 <?php if(is_front_page()){
-    $class = '';
+    $class = ' site_index';
 }
 elseif(is_404()){
     $class = ' site_inner site_no-footer';

@@ -19,7 +19,7 @@
 
                      <h2 class="hero__title"><?php the_sub_field('text_block') ?></h2>
                     <?php if($link): ?>
-                     <a href="<?= $link; ?>" class="btn">learn more</a>
+
                     <?php endif; ?>
                  </div>
                  <!-- /hero__info -->
@@ -33,6 +33,8 @@
 
         </div>
 
+        <a href="#" class="btn">learn more</a>
+
             <!-- hero__down -->
             <a href="#" class="hero__down">
                 <span>
@@ -45,5 +47,5 @@
 
     </div>
     <!-- /hero -->
-    
-     <?php  endif; ?>
+
+<?php  endif; ?>

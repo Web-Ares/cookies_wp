@@ -78,7 +78,11 @@ function add_js()
         wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/slick.css');
         wp_enqueue_style('product', get_template_directory_uri().'/dist/css/product.css');
     }
-    
+
+    if(is_page()){
+        wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/content-page.css');
+    }
+
     if (is_page_template('page-home.php')){
 
         wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/slick.css');
@@ -99,8 +103,12 @@ function add_js()
         wp_enqueue_script('non_exist_js');
         
     }
-    
-    
+
+    if(is_page()){
+        wp_register_script('content_js',get_template_directory_uri().'/dist/js/content.min.js');
+        wp_enqueue_script('content_js');
+    }
+
     if (is_page_template('page-shop.php')){
 
         wp_enqueue_style('shop', get_template_directory_uri().'/dist/css/shop-page.css');
@@ -229,5 +237,44 @@ add_action( 'after_setup_theme', 'woocommerce_support' );
 function woocommerce_support() {
     add_theme_support( 'woocommerce' );
 }
+
+
+function site_map_code(){
+
+    $tmp  =  $post;
+    $products = get_posts( array(
+        'post_type'=>'product',
+        'posts_per_page' => -1,
+        'post_status' => 'publish'
+    ) );
+
+    $pages = get_posts( array(
+        'post_type'=>'page',
+        'posts_per_page' => -1,
+        'post_status' => 'publish'
+    ) );
+
+    $sitemap = '';
+    $sitemap.='<h2>Pages</h2>';
+
+    $sitemap.='<ul>';
+    foreach ($pages as $post){
+        $sitemap.='<li><a href="'.get_the_permalink($post->ID).'">'.get_the_title($post->ID).'</a></li>';
+    }
+    $sitemap.='</ul>';
+
+
+    $sitemap.='<h2>Products</h2>';
+    $sitemap.='<ul>';
+    foreach ($products as $post){
+        $sitemap.='<li><a href="'.get_the_permalink($post->ID).'">'.get_the_title($post->ID).'</a></li>';
+    }
+    $sitemap.='</ul>';
+
+
+    $post = $tmp;
+    return $sitemap;
+}
+add_shortcode( 'site_map_code', 'site_map_code' );
 
 ?>

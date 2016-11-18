@@ -27,7 +27,7 @@ get_header( 'shop' );
 <!-- site__content -->
 <div class="site__content">
 
-	<h1 class="site__main-title site__main-title_2">Shop</h1>
+	<h1 class="site__main-title site__main-title_2"><?= get_the_title(76) ?></h1>
 
 	<?php wc_get_template_part( 'content', 'single-product' ); ?>
 

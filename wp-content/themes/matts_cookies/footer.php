@@ -48,43 +48,47 @@
                     <!-- site__footer-items -->
                     <div class="site__footer-items">
 
-                        <!-- site__footer-menu -->
-                        <ul class="site__footer-menu">
-                            <li>
-                                <a href="#">chocolate chip</a>
-                            </li>
-                            <li>
-                                <a href="#">peanut butter</a>
-                            </li>
-                            <li>
-                                <a href="#">oatmeal raisin</a>
-                            </li>
-                            <li>
-                                <a href="#">cranberry walnut</a>
-                            </li>
-                            <li>
-                                <a href="#">double chocolate chip</a>
-                            </li>
-                            <li>
-                                <a href="#">peanut butter chocolate chip</a>
-                            </li>
-                        </ul>
-                        <!-- /site__footer-menu -->
+                        <?php
+                        $tmp = $post;
+                        $product = get_posts( array(
+                            'post_type'=>'product',
+                            'posts_per_page' => -1,
+                            'post_status' => 'publish'
+                        ) );
+                        $count_product = count($product);
+                        $itemsInColumn = ceil($count_product/2);
+
+
+                        if($count_product>0): ?>
 
                         <!-- site__footer-menu -->
                         <ul class="site__footer-menu">
+
+                       <?php
+
+                        for($i = 0; $i < $count_product;$i++){
+                       $id = $product[$i]->ID;
+                       ?>
+
                             <li>
-                                <a href="#">apple fruit fig bar</a>
+                                <a href="<?php the_permalink($id) ?>"><?= get_the_title($id); ?></a>
                             </li>
-                            <li>
-                                <a href="#">fig bar</a>
-                            </li>
-                            <li>
-                                <a href="#">raspberry fig bar</a>
-                            </li>
-                            <li>
-                                <a href="#"> whole wheat fig bar</a>
-                            </li>
+
+                            <?php
+
+                            if($i == $itemsInColumn-1){ ?>
+                            </ul>
+                            <!-- site__footer-menu -->
+                            <ul class="site__footer-menu">
+
+                           <?php  }
+
+                        }
+
+                        endif;
+                        $post = $tmp;
+
+                        ?>
                         </ul>
                         <!-- /site__footer-menu -->
 

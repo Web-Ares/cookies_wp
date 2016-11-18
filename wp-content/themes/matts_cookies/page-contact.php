@@ -35,7 +35,7 @@ get_header(); ?>
                                    $phone = get_field('phone');
 
                                    ?>
-                            <a href="<?= $phone ?>"><?= $phone ?></a>
+                            <p><a href="tel:<?= $phone ?>"><?= $phone ?></a></p>
                         </address>
                         <?php   endif;
                         $mail = get_field('mail','options')
@@ -93,7 +93,7 @@ get_header(); ?>
                 <!-- /contact-us__layout -->
 
                 <!-- contact-us__map -->
-                <div class="contact-us__map" id="contact-google-map" data-map-lat="42.147441" data-map-lng="-87.912872" data-icon-path="<?= DIRECT; ?>img/marker.png" data-map-zoom="11">
+                <div class="contact-us__map" id="contact-google-map" data-map-lat="<?= get_field('map_latitude') ?>" data-map-lng="<?= get_field('longitude') ?>" data-icon-path="<?= DIRECT; ?>img/marker.png" data-map-zoom="<?= get_field('map_zoom') ?>">
 
 
                 </div>
