@@ -55,6 +55,9 @@ get_header(); ?>
         </div>
         <!-- /store-finder__layout -->
 
+
+        <?php echo do_shortcode('[wpsl]') ?>
+
     </div>
     <!-- /store-finder -->
     
@@ -72,12 +75,12 @@ get_header(); ?>
     if($products->have_posts()) {  ?>
 
     <!-- products-cookies -->
-    <div class="products-cookies slides">
+    <div class="products-cookies">
 
-        <h2 class="site__main-title">Shop</h2>
+        <h2 class="site__main-title slides"><?= get_the_title(76) ?></h2>
 
         <!-- products-cookies__layout -->
-        <div class="products-cookies__layout">
+        <div class="products-cookies__layout slides">
 
             <!-- products-cookies__items -->
             <div class="products-cookies__items">

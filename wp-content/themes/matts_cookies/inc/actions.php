@@ -60,6 +60,8 @@ if (function_exists('acf_add_options_page')) {
 
 add_action('wp_enqueue_scripts', 'add_js');
 
+
+
 /* styles and scripts*/
 function add_js()
 {
@@ -75,7 +77,7 @@ function add_js()
     }
 
     if(is_singular('product')){
-        wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/slick.css');
+        wp_enqueue_style('slick_css', get_template_directory_uri().'/dist/css/slick.css');
         wp_enqueue_style('product', get_template_directory_uri().'/dist/css/product.css');
     }
 
@@ -83,14 +85,25 @@ function add_js()
         wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/content-page.css');
     }
 
+    if(is_page_template('page-cart.php')){
+        wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/swiper.min.css');
+        wp_enqueue_style('cart_css', get_template_directory_uri().'/dist/css/cart-page.css');
+
+        wp_register_script('cart_js',get_template_directory_uri().'/dist/js/cart.min.js');
+        wp_enqueue_script('cart_js');
+
+        wp_register_script('swiper_js',get_template_directory_uri().'/dist/js/vendors/swiper.jquery.min.js');
+        wp_enqueue_script('swiper_js');
+    }
+
     if (is_page_template('page-home.php')){
 
-        wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/slick.css');
+        wp_enqueue_style('slick_css', get_template_directory_uri().'/dist/css/slick.css');
         wp_enqueue_style('index', get_template_directory_uri().'/dist/css/index.css');
 
     }
 
-    if (is_page_template('page-home.php') || is_archive('archive-product.php')){
+    if (is_archive('archive-product.php')){
 
         wp_enqueue_style('shop', get_template_directory_uri().'/dist/css/index.css');
 
@@ -170,15 +183,11 @@ function add_js()
 }
 wp_enqueue_style('style', get_template_directory_uri().'/style.css');
 
-
-
 if ( function_exists( 'add_theme_support' ) ) add_theme_support( 'post-thumbnails' );
 register_nav_menus( array(
     'menu' => 'menu',
     'footer_menu' => 'footer_menu'
 ) );
-
-
 
 function single_add_product(){
     global $woocommerce;
@@ -227,20 +236,18 @@ function single_add_product(){
     exit;
 }
 
-
 add_action('wp_ajax_single_add_product','single_add_product');
 
 add_action('wp_ajax_nopriv_single_add_product', 'single_add_product');
 
-
 add_action( 'after_setup_theme', 'woocommerce_support' );
+
 function woocommerce_support() {
     add_theme_support( 'woocommerce' );
 }
 
-
 function site_map_code(){
-
+    global $post;
     $tmp  =  $post;
     $products = get_posts( array(
         'post_type'=>'product',
@@ -275,6 +282,110 @@ function site_map_code(){
     $post = $tmp;
     return $sitemap;
 }
+
 add_shortcode( 'site_map_code', 'site_map_code' );
+
+function cart_quantity_changes(){
+
+    $new_quantity = $_GET['countProduct'];
+    $idProduct = $_GET['id'];
+    $keyProduct  = $_GET['key'];
+    $_product = wc_get_product( $idProduct );;
+
+    WC()->cart->set_quantity($keyProduct, $new_quantity);
+    
+    $subtotal_product =  WC()->cart->get_product_subtotal( $_product , $new_quantity );
+    $subtotal_product = str_replace('"', '\"', $subtotal_product);
+
+    $cartTotal  = WC()->cart->get_cart_total();
+    $cartTotal = str_replace('"', '\"', $cartTotal);
+    
+    $json_data = '{
+        "total": "'.$subtotal_product.'",
+        "subtotal":"'.$cartTotal.'"
+    }';
+
+    echo $json_data;
+    exit;
+}
+
+add_action('wp_ajax_cart_quantity_changes','cart_quantity_changes');
+
+add_action('wp_ajax_nopriv_cart_quantity_changes', 'cart_quantity_changes');
+
+function remove_cart_item(){
+
+    $keyProduct = $_GET['id'];
+    
+    WC()->cart->remove_cart_item($keyProduct);
+    $cartTotal  = WC()->cart->get_cart_total();
+    $cartTotal = str_replace('"', '\"', $cartTotal);
+    $item = '';
+    if ( WC()->cart->get_cart_contents_count() == 0 ) {
+        $cart_items = 0;
+    } else {
+        $cart_items = WC()->cart->get_cart_contents_count();
+        if($cart_items==1){
+            $item = ' item';
+        } else {
+            $item = ' items';
+        }
+    }
+    
+    
+    $json_data = '{
+        "cartCountProducts": "'.$cart_items.$item.'",
+        "subtotal":"'.$cartTotal.'"
+    }';
+
+    echo $json_data;
+    exit;
+
+}
+
+add_action('wp_ajax_remove_cart_item','remove_cart_item');
+
+add_action('wp_ajax_nopriv_remove_cart_item', 'remove_cart_item');
+
+function apply_coupon_to_order(){
+
+    $coupon_name = $_GET['coupon_name'];
+
+
+    if(count(WC()->cart->applied_coupons)==0){
+
+        $status = 1;
+
+        if( WC()->cart->add_discount($coupon_name)){
+            $message = 'Coupon was added';
+
+        } else {
+            $message = 'Something went wrong';
+        }
+
+    } else {
+
+        $message = 'Allowed to use only 1 coupon in order';
+        $status = 0;
+
+    }
+    $newSubTotal = WC()->cart->get_cart_total();
+    $newSubTotal = str_replace('"', '\"', $newSubTotal);
+
+    $json_data = '{
+        "message": "'.$message.'",
+        "status" : "'.$status.'",
+        "total": "'.$newSubTotal.'"
+        
+    }';
+
+    echo $json_data;
+    exit;
+
+}
+
+add_action('wp_ajax_apply_coupon_to_order','apply_coupon_to_order');
+
+add_action('wp_ajax_nopriv_apply_coupon_to_order', 'apply_coupon_to_order');
 
 ?>

@@ -1540,7 +1540,7 @@ class WC_Cart {
 			if ( $this->needs_shipping() === true && ! wc_ship_to_billing_address_only() ) {
 				$needs_shipping_address = true;
 			}
-
+			
 			return apply_filters( 'woocommerce_cart_needs_shipping_address', $needs_shipping_address );
 		}
 
