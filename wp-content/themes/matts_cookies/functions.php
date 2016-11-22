@@ -31,6 +31,7 @@ add_filter( 'woocommerce_billing_fields' , 'custom_override_billing_fields' );
 
 function custom_override_billing_fields( $fields ) {
 
+    unset($fields['billing_country']);
 
     $fields['billing_first_name'] = array(
         'label'     => __('First Name', 'woocommerce'),
@@ -56,11 +57,6 @@ function custom_override_billing_fields( $fields ) {
         'required'  => false
     );
 
-    $fields['billing_country'] = array(
-        'placeholder'   => _x('Country Name', 'placeholder', 'woocommerce'),
-        'type' => 'country',
-        'required' => false
-    );
 
     $fields['billing_address_1'] = array(
         'placeholder'   => _x('Address 1', 'placeholder', 'woocommerce'),
@@ -84,9 +80,30 @@ function custom_override_billing_fields( $fields ) {
         'required' => false
     );
 
+    $fields['billing_postcode'] = array(
+        'placeholder'   => _x('postcode', 'placeholder', 'woocommerce'),
+        'required' => false
+    );
+
     return $fields;
 }
 
 
+add_filter( 'woocommerce_shipping_fields' , 'custom_override_shipping_fields' );
+
+function custom_override_shipping_fields( $fields ) {
+
+    unset($fields['shipping_country']);
+
+
+
+    $fields['shipping_postcode'] = array(
+        'placeholder'   => _x('postcode', 'placeholder', 'woocommerce'),
+        'required' => false
+    );
+
+    return $fields;
+}
+add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
 require_once( TEMPLATEINC . '/template.php' );
 require_once( TEMPLATEINC . '/actions.php' );

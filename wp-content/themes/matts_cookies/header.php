@@ -201,44 +201,62 @@ else {
                         <img src="<?= DIRECT; ?>img/logo.png" width="231" height="176" alt="Matt's Cookies">
                     </div>
 
+
+                    <?php
+                        $homePage = home_url();
+
+
+                    ?>
+
                     <!-- site__nav -->
                     <nav class="site__menu-nav site__menu-nav_anchors">
                         <ul>
                             <li>
-                                <a data-href="our-cookies" href="#" class="site__menu-link">OUR COOKIES</a>
+                                <a <?= (is_front_page())? 'data-href="our-cookies"' : ''; ?> href="<?= $homePage ?>#our-cookies" class="site__menu-link">
+                                    <?php the_field('our_cookies_title_in__menu',5) ?>
+                                </a>
                             </li>
                             <li>
-                                <a data-href="about-us" href="#" class="site__menu-link">ABOUT</a>
+                                <a <?= (is_front_page())? 'data-href="about-us"' : ''; ?> href="<?= $homePage ?>#about-us" class="site__menu-link">
+                                    <?php the_field('about_us__title_menu',5) ?>
+                                </a>
                             </li>
                             <li>
-                                <a data-href="real-stuff" href="#" class="site__menu-link">THE REAL STUFF</a>
+                                <a <?= (is_front_page())? 'data-href="real-stuff"' : ''; ?> href="<?= $homePage ?>#real-stuff" class="site__menu-link">
+                                    <?php the_field('real_stuff__menu_title',5) ?>
+                                </a>
                             </li>
                         </ul>
                         <ul>
                             <li>
-                                <a href="#" class="site__menu-link">STORE FINDER</a>
+                                <a href="<?= $homePage ?>#store-finder" <?= (is_front_page())? 'data-href="store-finder"' : ''; ?> class="site__menu-link">
+                                    <?php the_field('store_finder_title_in_menu',5) ?>
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="site__menu-link">SHOP</a>
+                                <a href="<?= get_the_permalink(76) ?>" class="site__menu-link"><?= get_the_title(76) ?></a>
                             </li>
                             <li>
-                                <a data-href="site" href="#" class="site__menu-link">CONTACT US</a>
+                                <a href="<?= get_the_permalink(81) ?>" class="site__menu-link">
+                                    <?= get_the_title(81) ?></a>
                             </li>
                         </ul>
                     </nav>
                     <!-- /site__nav -->
 
-                    <a href="tel:8475373888" class="btn">
-                        CALL NOW: 847.537.3888
+                    <?php $phone_in_header = get_field('phone_in_header_for_mobile','options'); ?>
+
+                    <a href="tel:<?= $phone_in_header ?>" class="btn">
+                        CALL NOW: <?= $phone_in_header ?>
                     </a>
 
                     <!-- site__min-menu -->
                     <ul class="site__min-menu">
                         <li>
-                            <a class="site__min-menu-link" href="#">privacy terms</a>
+                            <a class="site__min-menu-link" href="<?= get_the_permalink(87) ?>"><?= get_the_title(87) ?></a>
                         </li>
                         <li>
-                            <a class="site__min-menu-link" href="#">terms of services</a>
+                            <a class="site__min-menu-link" href="<?= get_the_permalink(85) ?>"><?= get_the_title(85) ?></a>
                         </li>
                     </ul>
                     <!-- /site__min-menu -->

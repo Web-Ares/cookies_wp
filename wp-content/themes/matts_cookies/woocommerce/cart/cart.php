@@ -52,21 +52,19 @@ $currency = get_woocommerce_currency_symbol(); ?>
 				<div class="my-cart__product"  data-product-key="<?= $cart_item_key ?>" data-product-id="<?= $product_id ?>">
 					<div>
 
-						<!-- my-cart__product -->
-						<div class="my-cart__name">
+						<a href="<?= $link ?>" class="my-cart__name">
 
-							<!-- my-cart__product -->
-							<a href="<?= $link ?>" class="my-cart__pic">
-								<img src="<?= $thumb_url ?>" width="141" height="132" alt="<?= $productTitle ?>">
+								<!-- my-cart__product -->
+								<div class="my-cart__pic">
+									<img src="<?= $thumb_url ?>" width="141" height="132" alt="$productTitle">
+								</div>
+								<!-- my-cart__product -->
+
+								<div>
+									<span><span>Matt’s Cookies:</span> <?= $productTitle ?>, <?= $_product->get_weight(); ?>oz </span>
+								</div>
+
 							</a>
-							<!-- my-cart__product -->
-
-							<div>
-								<a href="<?= $link ?>"><span>Matt’s Cookies:</span> <?= $productTitle ?>, <?= $_product->get_weight(); ?>oz </a>
-							</div>
-
-						</div>
-						<!-- my-cart__product -->
 
 						<!-- my-cart__info -->
 						<div class="my-cart__info">
@@ -135,6 +133,17 @@ $currency = get_woocommerce_currency_symbol(); ?>
 			</form>
 		</div>
 		<!-- /my-cart__products -->
+
+		<!-- my-cart__empty -->
+		<div class="my-cart__empty">
+			<div>
+
+				<h2 class="site__title site__title_3">Your cart is currently empty.</h2>
+				<a class="btn product-single__add" href="<?= get_permalink('76') ?>">Return To Shop</a>
+
+			</div>
+		</div>
+		<!-- /my-cart__empty -->
 
 	</div>
 	<!-- /my-cart__layout -->

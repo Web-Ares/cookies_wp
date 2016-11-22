@@ -23,58 +23,112 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** @global WC_Checkout $checkout */
 
 ?>
-<div class="woocommerce-billing-fields">
-	<?php if ( wc_ship_to_billing_address_only() && WC()->cart->needs_shipping() ) : ?>
+<h2 class="checkout__title">your Billing info</h2>
 
-		<h3><?php _e( 'Billing &amp; Shipping', 'woocommerce' ); ?></h3>
+<!-- checkout__info -->
+<div class="checkout__info">
+	<div>
 
-	<?php else : ?>
-
-		<h3><?php _e( 'Billing Details', 'woocommerce' ); ?></h3>
-
-	<?php endif; ?>
-
-	<?php do_action( 'woocommerce_before_checkout_billing_form', $checkout ); ?>
-
-	<?php foreach ( $checkout->checkout_fields['billing'] as $key => $field ) : ?>
-
-		<?php woocommerce_form_field( $key, $field, $checkout->get_value( $key ) ); ?>
-
-	<?php endforeach; ?>
-
-	<?php do_action('woocommerce_after_checkout_billing_form', $checkout ); ?>
-
-	<?php if ( ! is_user_logged_in() && $checkout->enable_signup ) : ?>
-
-		<?php if ( $checkout->enable_guest_checkout ) : ?>
-
-			<p class="form-row form-row-wide create-account">
-				<input class="input-checkbox" id="createaccount" <?php checked( ( true === $checkout->get_value( 'createaccount' ) || ( true === apply_filters( 'woocommerce_create_account_default_checked', false ) ) ), true) ?> type="checkbox" name="createaccount" value="1" /> <label for="createaccount" class="checkbox"><?php _e( 'Create an account?', 'woocommerce' ); ?></label>
-			</p>
-
-		<?php endif; ?>
-
-		<?php do_action( 'woocommerce_before_checkout_registration_form', $checkout ); ?>
-
-		<?php if ( ! empty( $checkout->checkout_fields['account'] ) ) : ?>
-
-			<div class="create-account">
-
-				<p><?php _e( 'Create an account by entering the information below. If you are a returning customer please login at the top of the page.', 'woocommerce' ); ?></p>
-
-				<?php foreach ( $checkout->checkout_fields['account'] as $key => $field ) : ?>
-
-					<?php woocommerce_form_field( $key, $field, $checkout->get_value( $key ) ); ?>
-
-				<?php endforeach; ?>
-
-				<div class="clear"></div>
-
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div>
+				<label class="site__label" for="billing_first_name">FIRST NAME</label>
 			</div>
+			<div>
+				<input class="site__input"  value="<?= $checkout->get_value('billing_first_name') ?>" data-required type="text" id="billing_first_name" name="billing_first_name">
+			</div>
+		</fieldset>
+		<!-- /checkout__fields -->
 
-		<?php endif; ?>
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div><label class="site__label" for="billing_last_name">LAST NAME</label></div>
+			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_last_name') ?>" type="text" id="billing_last_name" name="billing_last_name"></div>
+		</fieldset>
+		<!-- /checkout__fields -->
 
-		<?php do_action( 'woocommerce_after_checkout_registration_form', $checkout ); ?>
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div><label class="site__label" for="billing_email">E-MAIL</label></div>
+			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_email') ?>" type="email" id="billing_email" name="billing_email"></div>
+		</fieldset>
+		<!-- /checkout__fields -->
 
-	<?php endif; ?>
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div> <label class="site__label" for="billing_phone">PHONE</label></div>
+			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_phone') ?>" type="tel" id="billing_phone" name="billing_phone"></div>
+		</fieldset>
+		<!-- /checkout__fields -->
+
+	</div>
+	<div>
+
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div><label class="site__label" for="billing_address_1">ADDRESS</label></div>
+			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_address_1') ?>" type="text" id="billing_address_1" name="billing_address_1"></div>
+		</fieldset>
+		<!-- /checkout__fields -->
+
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div><label class="site__label" for="billing_address_2">ADDRESS</label></div>
+			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_address_2') ?>" type="text" id="billing_address_2" name="billing_address_2"></div>
+		</fieldset>
+		<!-- /checkout__fields -->
+
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields">
+			<div><label class="site__label" for="billing_city">CITY & STATE</label></div>
+			<div class="checkout__fields__two">
+				<div>
+
+					<?php
+					$country_key = 'billing_state' === $key ? 'billing_country' : 'shipping_country';
+					$current_cc  = WC()->checkout->get_value( $country_key );
+					$states      = WC()->countries->get_states( $current_cc );
+//					var_dump($states);
+//					var_dump($checkout->checkout_fields['billing']);
+					?>
+
+					<input class="site__input" data-required value="<?= $checkout->get_value('billing_city') ?>" type="text" id="billing_city" name="billing_city">
+
+					<?php
+
+					if(is_array( $states ) && !empty( $states )):
+						?>
+						<select name="billing_state" id="state">
+
+							<?php foreach ($states as $key => $state){
+
+								if($checkout->get_value('billing_state') == $key){
+									$selected = 'selected';
+								} else {
+									$selected = '';
+								}
+
+								?>
+
+								<option  <?= $selected ?> value="<?= $key ?>"><?= $state ?></option>
+
+							<?php } ?>
+
+						</select>
+					<?php endif; ?>
+
+				</div>
+			</div>
+		</fieldset>
+		<!-- /checkout__fields -->
+		
+		<!-- checkout__fields -->
+		<fieldset class="checkout__fields checkout__fields_zip">
+			<div><label class="site__label" for="billing_postcode">ZIP</label></div>
+			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_postcode') ?>" type="text" id="billing_postcode" name="billing_postcode"></div>
+		</fieldset>
+		<!-- /checkout__fields -->
+
+	</div>
 </div>
+<!-- /checkout__info -->

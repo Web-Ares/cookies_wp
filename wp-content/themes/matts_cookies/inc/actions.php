@@ -72,7 +72,7 @@ function add_js()
     wp_enqueue_script('jquery');
 
     
-    if(is_page_template(array('page-home.php')) || is_archive('archive-product.php')){
+    if(is_page_template(array('page-home.php','page-checkout.php')) || is_archive('archive-product.php')){
         wp_enqueue_style('scrollbar_css', get_template_directory_uri().'/dist/css/perfect-scrollbar.css');
     }
 
@@ -81,7 +81,7 @@ function add_js()
         wp_enqueue_style('product', get_template_directory_uri().'/dist/css/product.css');
     }
 
-    if(is_page()){
+    if(is_page_template('default') || is_singular('post')){
         wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/content-page.css');
     }
 
@@ -98,14 +98,16 @@ function add_js()
 
     if (is_page_template('page-home.php')){
 
+        wp_enqueue_style('store-finder', get_template_directory_uri().'/dist/css/store-finder.min.css');
         wp_enqueue_style('slick_css', get_template_directory_uri().'/dist/css/slick.css');
         wp_enqueue_style('index', get_template_directory_uri().'/dist/css/index.css');
-
+        
     }
 
     if (is_archive('archive-product.php')){
 
-        wp_enqueue_style('shop', get_template_directory_uri().'/dist/css/index.css');
+        wp_enqueue_style('slick', get_template_directory_uri().'/dist/css/slick.css');
+        wp_enqueue_style('shop', get_template_directory_uri().'/dist/css/shop-page.css');
 
     }
 
@@ -117,7 +119,7 @@ function add_js()
         
     }
 
-    if(is_page()){
+    if(is_page_template('default') || is_singular('post')){
         wp_register_script('content_js',get_template_directory_uri().'/dist/js/content.min.js');
         wp_enqueue_script('content_js');
     }
@@ -134,7 +136,7 @@ function add_js()
 
     }
 
-    if (is_page_template(array('page-home.php'))|| is_archive('archive-product.php')){
+    if (is_page_template(array('page-home.php','page-checkout.php'))|| is_archive('archive-product.php')){
 
         wp_register_script('scroll',get_template_directory_uri().'/dist/js/vendors/perfect-scrollbar.jquery.min.js');
         wp_enqueue_script('scroll');
@@ -150,7 +152,7 @@ function add_js()
         wp_enqueue_script('single_product_js');
     }
     
-    if (is_page_template('page-home.php') || is_archive('archive-product.php')){
+    if (is_page_template('page-home.php')){
 
         wp_register_script('slick_js',get_template_directory_uri().'/dist/js/vendors/slick.min.js');
         wp_enqueue_script('slick_js');
@@ -159,6 +161,17 @@ function add_js()
         wp_enqueue_script('index_js');
 
     }
+    if(is_archive('archive-product.php')){
+
+        wp_register_script('slick_js',get_template_directory_uri().'/dist/js/vendors/slick.min.js');
+        wp_enqueue_script('slick_js');
+
+        wp_register_script('shop_js',get_template_directory_uri().'/dist/js/shop.min.js');
+        wp_enqueue_script('shop_js');
+
+    }
+
+   
 
     if (is_page_template('page-shop.php')){
 
@@ -175,10 +188,14 @@ function add_js()
         wp_enqueue_script('contact_js');
     }
 
-   
+    if (is_page_template('page-checkout.php')){
+        wp_enqueue_style('checkout', get_template_directory_uri().'/dist/css/checkout-page.css');
 
 
+        wp_register_script('checkout_js',get_template_directory_uri().'/dist/js/checkout.min.js');
+        wp_enqueue_script('checkout_js');
 
+    }
 
 }
 wp_enqueue_style('style', get_template_directory_uri().'/style.css');
@@ -190,7 +207,7 @@ register_nav_menus( array(
 ) );
 
 function single_add_product(){
-    global $woocommerce;
+
     $json_data='';
 
     $product_id  = intval( $_GET['id'] );
@@ -293,13 +310,13 @@ function cart_quantity_changes(){
     $_product = wc_get_product( $idProduct );;
 
     WC()->cart->set_quantity($keyProduct, $new_quantity);
-    
+
     $subtotal_product =  WC()->cart->get_product_subtotal( $_product , $new_quantity );
     $subtotal_product = str_replace('"', '\"', $subtotal_product);
 
     $cartTotal  = WC()->cart->get_cart_total();
     $cartTotal = str_replace('"', '\"', $cartTotal);
-    
+
     $json_data = '{
         "total": "'.$subtotal_product.'",
         "subtotal":"'.$cartTotal.'"

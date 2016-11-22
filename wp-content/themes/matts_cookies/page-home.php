@@ -44,7 +44,7 @@ get_header(); ?>
                         </select>
                     </div>
                     <div class="store-finders__search">
-                        <button type="submit" class="btn btn_3"><span>Search</span></button>
+                        <button type="button" class="btn btn_3 popup__open store-finders__search" data-popup="store-finder"><span>Search</span></button>
                     </div>
 
                 </div>
@@ -56,7 +56,7 @@ get_header(); ?>
         <!-- /store-finder__layout -->
 
 
-        <?php echo do_shortcode('[wpsl]') ?>
+<!--        --><?php //echo do_shortcode('[wpsl]') ?>
 
     </div>
     <!-- /store-finder -->

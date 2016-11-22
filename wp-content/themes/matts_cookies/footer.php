@@ -7,19 +7,16 @@
 
         <?php if(is_front_page()){ ?>
 
-            <!-- site__footer-logo -->
-            <div class="site__footer-logo">
+            <h2 class="site__footer-logo">
                 <img src="<?= DIRECT; ?>img/footer-logo.png" width="276" height="206" alt="Matt's Cookies">
-            </div>
-            <!-- /site__footer-logo -->
+            </h2>
 
-       <?php  } else { ?>
+       <?php  }
+        else { ?>
 
-            <!-- site__footer-logo -->
-            <div class="site__footer-logo">
+            <a href="<?= home_url(); ?>" class="site__footer-logo">
                 <img src="<?= DIRECT; ?>img/footer-logo.png" width="276" height="206" alt="Matt's Cookies">
-            </div>
-            <!-- /site__footer-logo -->
+            </a>
 
        <?php  } ?>
 
@@ -104,34 +101,51 @@
 
                         <!-- site__footer-menu -->
                         <ul class="site__footer-menu">
+
+                            <?php $homePage = home_url(); ?>
+
                             <li>
-                                <a href="#">about matt’s cookies</a>
+                                <a <?= (is_front_page())? 'data-href="about-us"' : ''; ?> href="<?= $homePage ?>#about-us">
+                                    <?php the_field('about_us__title_menu',5) ?>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">the real stuff</a>
+                                <a <?= (is_front_page())? 'data-href="real-stuff"' : ''; ?> href="<?= $homePage ?>#real-stuff">
+                                    <?php the_field('real_stuff__menu_title',5) ?>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">store finder</a>
+                                <a href="<?= $homePage ?>#store-finder" <?= (is_front_page())? 'data-href="store-finder"' : ''; ?>>
+                                    <?php the_field('store_finder_title_in_menu',5) ?>
+                                </a>
                             </li>
                             <li>
-                                <a href="#">privacy terms</a>
+                                <a  href="<?= get_the_permalink(87) ?>"><?= get_the_title(87) ?></a>
                             </li>
                             <li>
-                                <a href="#">terms of services</a>
+                                <a  href="<?= get_the_permalink(85) ?>"><?= get_the_title(85) ?></a>
                             </li>
+
                         </ul>
+
                         <!-- /site__footer-menu -->
 
                         <!-- site__footer-menu -->
                         <ul class="site__footer-menu">
+
                             <li>
-                                CALL US:<a href="tel:847.537.3888"> 847.537.3888</a>
+                                <a  href="<?= get_the_permalink(85) ?>"><?= get_the_title(85) ?></a>
+                            </li>
+
+                            <li>
+                                <?php $link = get_field('phone_in_header_for_mobile','options'); ?>
+                                CALL US:<a href="tel:<?= $link ?>"> <?= $link ?></a>
                             </li>
                             <li>
-                                <a href="#">contact us</a>
+                                <a  href="<?= get_the_permalink(81) ?>"><?= get_the_title(81) ?></a>
                             </li>
                             <li>
-                                <a href="#">SITEMAP</a>
+                                <a  href="<?= get_the_permalink(123) ?>"><?= get_the_title(123) ?></a>
                             </li>
                             <li>
                                 CONNECT TO us:
@@ -209,10 +223,6 @@
 </footer>
 <!-- /site__footer -->
 
-</div>
-<!-- /site -->
-<?php wp_footer(); ?>
-<!-- popup -->
 
 <?php if(is_page_template(array('page-home.php'))){ ?>
     <div class="popup">
@@ -248,10 +258,44 @@
             </div>
             <!-- /popup__content -->
 
+            <!-- popup__content -->
+            <div class="popup__content popup__store-finder">
+
+                <!-- popup__close -->
+                <div class="popup__close">
+
+                </div>
+                <!-- /popup__close -->
+
+                <!-- store-finder__popup -->
+                <div class="store-finder__popup" >
+
+                    <h2 class="site__main-title site__main-title_5">STORE FINDER</h2>
+
+                    <!-- store-finder__inner -->
+                    <div class="store-finder__inner">
+
+                        <?php echo do_shortcode('[wpsl]') ?>
+
+                    </div>
+                    <!-- /store-finder__inner -->
+
+                </div>
+                <!-- /store-finder__popup -->
+
+
+            </div>
+            <!-- /popup__content -->
+
         </div>
         <!-- /popup__wrap -->
 
     </div>
+
+
+</div>
+<!-- /site -->
+
 <?php } elseif(is_singular('product')){ ?>
 
     <!-- popup -->
@@ -288,17 +332,17 @@
                             $attributes['url'] = wp_get_attachment_image_src($image,'full')[0];
 
                             $attributes['description'] = get_post($image)->post_content;
-                        ?>
-                        <div class="nutrition-facts__pic">
-                            <img src="<?= $attributes['url'] ?>" width="290" height="553" title="<?= $attributes['description'] ?>" alt="<?= $attributes['alt'] ?>">
-                        </div>
+                            ?>
+                            <div class="nutrition-facts__pic">
+                                <img src="<?= $attributes['url'] ?>" width="290" height="553" title="<?= $attributes['description'] ?>" alt="<?= $attributes['alt'] ?>">
+                            </div>
                         <?php endif; ?>
 
                         <?= $text; ?>
                         <?php if($link): ?>
-                         <div class="nutrition-facts__learn">
-                            <a href="<?= $link ?>">Learn more about our quality ingredients</a>
-                        </div>
+                            <div class="nutrition-facts__learn">
+                                <a href="<?= $link ?>">Learn more about our quality ingredients</a>
+                            </div>
                         <?php endif; ?>
                     </div>
                     <!-- /nutrition-facts__description -->
@@ -317,6 +361,15 @@
 
 <?php } ?>
 
+<?php wp_footer(); ?>
+<!-- popup -->
+
+
+
+
+<?php //if(is_front_page()){ ?>
+<!--    <script src="custom_wp_store_locatore.js"></script>-->
+<?php //} ?>
 
 
 

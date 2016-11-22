@@ -16,6 +16,9 @@
                     $link_id = get_sub_field('choose_the_product');
                     $link = get_the_permalink($link_id);
                     $text = get_sub_field('desrciption_text_');
+
+                    
+
                     $title = get_the_title($link_id);
                     ?>
 

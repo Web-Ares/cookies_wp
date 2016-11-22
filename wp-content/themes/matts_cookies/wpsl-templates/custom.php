@@ -1,7 +1,7 @@
 <?php
 global $wpsl_settings, $wpsl;
 
-$output         = $this->get_custom_css();
+$output         = '';
 $autoload_class = ( !$wpsl_settings['autoload'] ) ? 'class="wpsl-not-loaded"' : '';
 
 $output .= '<div id="wpsl-wrap">' . "\r\n";

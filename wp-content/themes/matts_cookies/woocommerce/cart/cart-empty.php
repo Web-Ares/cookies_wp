@@ -21,25 +21,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-
-
-
 <!-- my-cart -->
-<div class="my-cart">
+<div class="my-cart empty">
 
 	<!-- my-cart__layout -->
 	<div class="my-cart__layout">
-		<h2><?php _e( 'Your cart is currently empty.', 'woocommerce' ) ?></h2>
-		<?php if ( wc_get_page_id( 'shop' ) > 0 ) : ?>
 
-				<a class="btn product-single__add" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-					<?php _e( 'Return To Shop', 'woocommerce' ) ?>
-				</a>
+	<!-- my-cart__empty -->
+	<div class="my-cart__empty">
+		<div>
 
-		<?php endif; ?>
+			<h2 class="site__title site__title_3">Your cart is currently empty.</h2>
+			<a class="btn product-single__add" href="<?= get_permalink('76') ?>">Return To Shop</a>
 
+		</div>
 	</div>
-	<!-- /my-cart__layout -->
+	<!-- /my-cart__empty -->
 
+
+
+</div>
 </div>
 <!-- /product-single -->
