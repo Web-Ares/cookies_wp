@@ -84,13 +84,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="checkout__fields__two">
 				<div>
 
-					<?php
-					$country_key = 'billing_state' === $key ? 'billing_country' : 'shipping_country';
-					$current_cc  = WC()->checkout->get_value( $country_key );
-					$states      = WC()->countries->get_states( $current_cc );
-//					var_dump($states);
-//					var_dump($checkout->checkout_fields['billing']);
-					?>
+					<?php $states = WC()->countries->get_states( 'US' );  ?>
 
 					<input class="site__input" data-required value="<?= $checkout->get_value('billing_city') ?>" type="text" id="billing_city" name="billing_city">
 

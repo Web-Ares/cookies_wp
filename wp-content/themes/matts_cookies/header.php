@@ -233,12 +233,15 @@ else {
                                     <?php the_field('store_finder_title_in_menu',5) ?>
                                 </a>
                             </li>
+                            <?php $title =  get_the_title(76);?>
                             <li>
-                                <a href="<?= get_the_permalink(76) ?>" class="site__menu-link"><?= get_the_title(76) ?></a>
+                                <a href="<?= get_permalink(76) ?>" class="site__menu-link">
+                                    <?= get_the_title(76); ?>
+                                </a>
                             </li>
                             <li>
                                 <a href="<?= get_the_permalink(81) ?>" class="site__menu-link">
-                                    <?= get_the_title(81) ?></a>
+                                    <?= get_the_title(81); ?></a>
                             </li>
                         </ul>
                     </nav>

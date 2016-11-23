@@ -44,7 +44,7 @@ get_header(); ?>
                         </select>
                     </div>
                     <div class="store-finders__search">
-                        <button type="button" class="btn btn_3 popup__open store-finders__search" data-popup="store-finder"><span>Search</span></button>
+                        <a href="#wpsl-map-tab" class="btn btn_3 popup__open store-finders__search" data-popup="store-finder"><span>Search</span></a>
                     </div>
 
                 </div>

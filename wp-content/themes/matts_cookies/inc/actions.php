@@ -187,14 +187,20 @@ function add_js()
         wp_register_script('contact_js',get_template_directory_uri().'/dist/js/contact-us.min.js');
         wp_enqueue_script('contact_js');
     }
+    
+    if(is_order_received_page()){
+        wp_enqueue_style('confirmation', get_template_directory_uri().'/dist/css/confirmation-page.css');
 
-    if (is_page_template('page-checkout.php')){
+        wp_register_script('confirmation_js',get_template_directory_uri().'/dist/js/confirmation.min.js');
+        wp_enqueue_script('confirmation_js');
+
+    }
+    elseif(is_page_template('page-checkout.php')){
         wp_enqueue_style('checkout', get_template_directory_uri().'/dist/css/checkout-page.css');
 
 
         wp_register_script('checkout_js',get_template_directory_uri().'/dist/js/checkout.min.js');
         wp_enqueue_script('checkout_js');
-
     }
 
 }
@@ -404,5 +410,15 @@ function apply_coupon_to_order(){
 add_action('wp_ajax_apply_coupon_to_order','apply_coupon_to_order');
 
 add_action('wp_ajax_nopriv_apply_coupon_to_order', 'apply_coupon_to_order');
+
+add_filter( 'gform_submit_button', 'form_submit_button', 10, 2 );
+function form_submit_button( $button, $form ) {
+
+    if($form['id'] == 1){
+        return '<button class="btn btn_9 gform_button button" id="gform_submit_button_1" type="submit"><span>SIGN UP</span></button>';
+    }
+
+}
+
 
 ?>

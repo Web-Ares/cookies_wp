@@ -6,3 +6,17 @@ Version: 1.0
 .wpcf7-response-output{
     display: none !important;
 }
+.gform_ajax_spinner {
+    display: none !important;
+}
+
+#ship-to-different-address{
+    display: none !important;
+}
+.woocommerce-error {
+    display: none;
+}
+
+.woocommerce-info {
+    display: none;
+}

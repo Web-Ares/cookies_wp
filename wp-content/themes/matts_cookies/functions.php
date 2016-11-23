@@ -33,11 +33,11 @@ function custom_override_billing_fields( $fields ) {
 
     unset($fields['billing_country']);
 
-    $fields['billing_first_name'] = array(
-        'label'     => __('First Name', 'woocommerce'),
-        'placeholder'   => _x('First Name', 'placeholder', 'woocommerce'),
-        'required'  => false
-    );
+//    $fields['billing_first_name'] = array(
+//        'label'     => __('First Name', 'woocommerce'),
+//        'placeholder'   => _x('First Name', 'placeholder', 'woocommerce'),
+//        'required'  => false
+//    );
 
     $fields['billing_last_name'] = array(
         'label'     => __('List Name', 'woocommerce'),
@@ -93,9 +93,7 @@ add_filter( 'woocommerce_shipping_fields' , 'custom_override_shipping_fields' );
 
 function custom_override_shipping_fields( $fields ) {
 
-    unset($fields['shipping_country']);
-
-
+//    unset($fields['shipping_country']);
 
     $fields['shipping_postcode'] = array(
         'placeholder'   => _x('postcode', 'placeholder', 'woocommerce'),

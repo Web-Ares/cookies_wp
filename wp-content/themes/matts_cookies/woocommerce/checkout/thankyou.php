@@ -35,34 +35,40 @@ if ( $order ) : ?>
 
 	<?php else : ?>
 
-		<p class="woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); ?></p>
+		<!-- site__content-full -->
+		<div class="site__content-full site__content_centered">
 
-		<ul class="woocommerce-thankyou-order-details order_details">
-			<li class="order">
-				<?php _e( 'Order Number:', 'woocommerce' ); ?>
-				<strong><?php echo $order->get_order_number(); ?></strong>
-			</li>
-			<li class="date">
-				<?php _e( 'Date:', 'woocommerce' ); ?>
-				<strong><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></strong>
-			</li>
-			<li class="total">
-				<?php _e( 'Total:', 'woocommerce' ); ?>
-				<strong><?php echo $order->get_formatted_order_total(); ?></strong>
-			</li>
-			<?php if ( $order->payment_method_title ) : ?>
-			<li class="method">
-				<?php _e( 'Payment Method:', 'woocommerce' ); ?>
-				<strong><?php echo $order->payment_method_title; ?></strong>
-			</li>
-			<?php endif; ?>
-		</ul>
-		<div class="clear"></div>
+			<!-- confirmation -->
+			<div class="confirmation">
+
+				<!-- confirmation__layout -->
+				<div class="confirmation__layout">
+
+					<h2 class="site__title site__title_4">THANK YOU!</h2>
+
+					<!-- confirmation__info -->
+					<div class="confirmation__info">
+						<p>Your order #<?php echo $order->get_order_number(); ?> was successfully placed.</p>
+						<p>Your cookies are on the way!</p>
+					</div>
+					<!-- /confirmation__info -->
+
+					<p>In the meantime, join the Matt’s Cookie Club for exclusive offers
+						and discounts!</p>
+
+					<a href="#" class="btn btn_6 popup__open" data-popup="sign">SIGN ME UP</a>
+
+				</div>
+				<!-- /confirmation__layout -->
+
+			</div>
+			<!-- /confirmation -->
+
+		</div>
+		<!-- /site__content-full -->
 
 	<?php endif; ?>
 
-	<?php do_action( 'woocommerce_thankyou_' . $order->payment_method, $order->id ); ?>
-	<?php do_action( 'woocommerce_thankyou', $order->id ); ?>
 
 <?php else : ?>
 

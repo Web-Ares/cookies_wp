@@ -223,6 +223,8 @@
 </footer>
 <!-- /site__footer -->
 
+</div>
+<!-- /site -->
 
 <?php if(is_page_template(array('page-home.php'))){ ?>
     <div class="popup">
@@ -293,9 +295,6 @@
     </div>
 
 
-</div>
-<!-- /site -->
-
 <?php } elseif(is_singular('product')){ ?>
 
     <!-- popup -->
@@ -324,7 +323,7 @@
                         <?php
                         $text = get_field('ingridients_text');
                         $image = get_field('choose_the_ingridients_image');
-                        $link = get_field('learn_more_link');
+
 
                         if($image):
                             $attributes['alt'] = get_post_meta($image , '_wp_attachment_image_alt', true);
@@ -339,11 +338,13 @@
                         <?php endif; ?>
 
                         <?= $text; ?>
-                        <?php if($link): ?>
+
                             <div class="nutrition-facts__learn">
-                                <a href="<?= $link ?>">Learn more about our quality ingredients</a>
+                                <a <?= (is_front_page())? 'data-href="real-stuff"' : ''; ?> href="<?= $homePage ?>#real-stuff">
+                                    Learn more about our quality ingredients
+                                </a>
                             </div>
-                        <?php endif; ?>
+
                     </div>
                     <!-- /nutrition-facts__description -->
 
@@ -359,19 +360,79 @@
     </div>
     <!-- /popup -->
 
+<?php }
+elseif(is_order_received_page()){ ?>
+
+    <!-- popup -->
+    <div class="popup">
+
+        <!-- popup__wrap -->
+        <div class="popup__wrap">
+
+            <!-- popup__content -->
+            <div class="popup__content popup__sign">
+
+                <!-- popup__close -->
+                <div class="popup__close">
+
+                </div>
+                <!-- /popup__close -->
+
+                <!-- sign-up -->
+                <div class="sign-up">
+
+                    <h2 class="site__main-title site__main-title_4">SIGN UP</h2>
+
+                    <!-- sign-up -->
+                    <div class="sign-up__inner">
+
+                        <!-- sign-up__form -->
+                        <div class="sign-up__form">
+                            
+                            <div class="sign-up__text">
+                                <p>SIGN UP FOR THE MATT'S COOKIE CLUB</p>
+                                <p>WE DON'T EMAIL A TON, BUT WHEN WE DO</p>
+                                <p>IT'S RIDICULOUSLY GOOD</p>
+                            </div>
+
+                            <?= do_shortcode('[gravityform id=1 title=false description=false ajax=true]') ?>
+
+                        </div>
+                        <!-- /sign-up__form -->
+                        <!-- sign-up__success -->
+                        <div class="sign-up__success">
+
+                            <!-- sign-up__text -->
+                            <div class="sign-up__text">
+                                <p>THANK YOU!</p>
+                                YOU WERE SUCCESSFULLY SIGNED UP
+                                FOR THE MATT'S COOKIE CLUB
+                            </div>
+                            <!-- /sign-up__text -->
+
+                            <a href="#" class="btn btn_9 popup__cancel"><span>OK</span></a>
+
+                        </div>
+                        <!-- /sign-up__success -->
+
+                    </div>
+                    <!-- sign-up -->
+
+                </div>
+                <!-- /sign-up -->
+
+            </div>
+            <!-- /popup__content -->
+
+        </div>
+        <!-- /popup__wrap -->
+
+    </div>
+    <!-- /popup -->
+
 <?php } ?>
 
 <?php wp_footer(); ?>
-<!-- popup -->
-
-
-
-
-<?php //if(is_front_page()){ ?>
-<!--    <script src="custom_wp_store_locatore.js"></script>-->
-<?php //} ?>
-
-
 
 </body>
 </html>

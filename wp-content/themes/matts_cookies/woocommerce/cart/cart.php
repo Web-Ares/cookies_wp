@@ -123,7 +123,7 @@ $currency = get_woocommerce_currency_symbol(); ?>
 
 						<span class="my-cart__total">SUBTOTAL: <span><?= WC()->cart->get_cart_total(); ?></span></span>
 
-						<button type="submit" class="btn btn_5"><span>PROCEED TO CHECKOUT</span></button>
+						<a href="<?php echo esc_url( wc_get_checkout_url() ) ;?>" class="btn btn_5"><span>PROCEED TO CHECKOUT</span></a>
 
 					</div>
 
