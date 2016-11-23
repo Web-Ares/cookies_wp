@@ -323,10 +323,21 @@ function cart_quantity_changes(){
     $cartTotal  = WC()->cart->get_cart_total();
     $cartTotal = str_replace('"', '\"', $cartTotal);
 
+    $discount = WC()->cart->get_total_discount();
+    $discount = str_replace('"', '\"', $discount);
+
     $json_data = '{
         "total": "'.$subtotal_product.'",
-        "subtotal":"'.$cartTotal.'"
+        "subtotal":"'.$cartTotal.'",
+        "discount": '.$discount.'"
     }';
+
+    $json_data = '{
+        "total": "'.$subtotal_product.'",
+        "subtotal":"'.$cartTotal.'",
+         "discount":"'.$discount.'"
+    }';
+
 
     echo $json_data;
     exit;
@@ -354,11 +365,16 @@ function remove_cart_item(){
             $item = ' items';
         }
     }
+
     
-    
+    $discount = WC()->cart->get_total_discount();
+    $discount = str_replace('"', '\"', $discount);
+
+
     $json_data = '{
         "cartCountProducts": "'.$cart_items.$item.'",
-        "subtotal":"'.$cartTotal.'"
+        "subtotal":"'.$cartTotal.'",
+        "discount": "'.$discount.'"
     }';
 
     echo $json_data;
@@ -372,34 +388,32 @@ add_action('wp_ajax_nopriv_remove_cart_item', 'remove_cart_item');
 
 function apply_coupon_to_order(){
 
-    $coupon_name = $_GET['coupon_name'];
-
-
+    $coupon_name = $_GET['inputVal'];
+    $discount = '';
+    $status = 0;
     if(count(WC()->cart->applied_coupons)==0){
 
-        $status = 1;
-
         if( WC()->cart->add_discount($coupon_name)){
-            $message = 'Coupon was added';
-
-        } else {
-            $message = 'Something went wrong';
+            $discount = WC()->cart->get_total_discount();
+            $discount = str_replace('"', '\"', $discount);
+            $status = 1;
+          
         }
 
     } else {
-
-        $message = 'Allowed to use only 1 coupon in order';
         $status = 0;
-
     }
+
+
     $newSubTotal = WC()->cart->get_cart_total();
     $newSubTotal = str_replace('"', '\"', $newSubTotal);
 
+
+
     $json_data = '{
-        "message": "'.$message.'",
-        "status" : "'.$status.'",
-        "total": "'.$newSubTotal.'"
-        
+        "discount": "'.$discount.'",
+        "subtotal": "'.$newSubTotal.'",
+        "status": "'.$status.'"
     }';
 
     echo $json_data;
@@ -410,6 +424,34 @@ function apply_coupon_to_order(){
 add_action('wp_ajax_apply_coupon_to_order','apply_coupon_to_order');
 
 add_action('wp_ajax_nopriv_apply_coupon_to_order', 'apply_coupon_to_order');
+
+function remove_coupon_to_order(){
+
+    $coupon_name = $_GET['inputVal'];
+    $cart = '';
+    WC()->cart->remove_coupon($coupon_name);
+
+    if(WC()->cart->remove_coupon($coupon_name)){
+        $cart = WC()->cart->get_cart_subtotal();
+    }
+
+
+    
+    $newSubTotal = str_replace('"', '\"', $cart);
+
+    $json_data = '{
+        "subtotal": "'.$newSubTotal.'"
+    }';
+
+
+
+    echo $json_data;
+    exit;
+}
+
+add_action('wp_ajax_remove_coupon_to_order','remove_coupon_to_order');
+
+add_action('wp_ajax_nopriv_remove_coupon_to_order', 'remove_coupon_to_order');
 
 add_filter( 'gform_submit_button', 'form_submit_button', 10, 2 );
 function form_submit_button( $button, $form ) {

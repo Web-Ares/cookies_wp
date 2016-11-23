@@ -212,7 +212,8 @@ else {
                     <nav class="site__menu-nav site__menu-nav_anchors">
                         <ul>
                             <li>
-                                <a <?= (is_front_page())? 'data-href="our-cookies"' : ''; ?> href="<?= $homePage ?>#our-cookies" class="site__menu-link">
+                                <a <?= (is_front_page())? 'data-href="our-cookies"' : ''; ?> href="
+                                <?= $homePage ?>#our-cookies" class="site__menu-link">
                                     <?php the_field('our_cookies_title_in__menu',5) ?>
                                 </a>
                             </li>
@@ -234,13 +235,29 @@ else {
                                 </a>
                             </li>
                             <?php $title =  get_the_title(76);?>
+                            <?php $id =  get_the_ID();?>
+
+                            <?php if(is_archive('archive-product.php')){
+                                $class = ' active';
+                            } else {
+                                $class = '';
+                            } ?>
+
                             <li>
-                                <a href="<?= get_permalink(76) ?>" class="site__menu-link">
+                                <a href="<?= get_permalink(76) ?>" class="site__menu-link<?= $class; ?>">
                                     <?= get_the_title(76); ?>
                                 </a>
                             </li>
+
+                            <?php
+                            if(get_the_ID()==81){
+                                $class = ' active';
+                            } else {
+                                $class = '';
+                            } ?>
+
                             <li>
-                                <a href="<?= get_the_permalink(81) ?>" class="site__menu-link">
+                                <a href="<?= get_the_permalink(81) ?>" class="site__menu-link<?= $class; ?>">
                                     <?= get_the_title(81); ?></a>
                             </li>
                         </ul>
@@ -255,8 +272,9 @@ else {
 
                     <!-- site__min-menu -->
                     <ul class="site__min-menu">
-                        <li>
-                            <a class="site__min-menu-link" href="<?= get_the_permalink(87) ?>"><?= get_the_title(87) ?></a>
+                        <li class=" active">
+                            <a class="site__min-menu-link active" href="<?= get_the_permalink(87) ?>">
+                                <?= get_the_title(87)?></a>
                         </li>
                         <li>
                             <a class="site__min-menu-link" href="<?= get_the_permalink(85) ?>"><?= get_the_title(85) ?></a>

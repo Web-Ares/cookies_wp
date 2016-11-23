@@ -6,7 +6,8 @@ if($flag == 'remove'){
 
     $json_data = '{
         "cartCountProducts": "1 item",
-        "subtotal":"10$"
+        "subtotal":"10$",
+        "discount":"10$"
     }';
 
 } else if($flag == 'changeCount'){
@@ -15,7 +16,8 @@ if($flag == 'remove'){
 
     $json_data = '{
         "total": "6$",
-        "subtotal":"20$"
+        "subtotal":"20$",
+         "discount":"10$"
     }';
 
 } else if($flag == 'addToCart'){
@@ -25,6 +27,24 @@ if($flag == 'remove'){
 
     $json_data = '{
         "cartCountProducts": "2 item"
+    }';
+
+} else if($flag == 'coupon'){
+
+    $value = $_GET['inputVal'];
+
+    $json_data = '{
+        "discount": "-$6.75",
+        "subtotal": "$6.75",
+        "status": 1
+    }';
+
+} else if($flag == 'couponRemove'){
+
+    $value = $_GET['inputVal'];
+
+    $json_data = '{
+        "subtotal": "$10.75"
     }';
 
 }

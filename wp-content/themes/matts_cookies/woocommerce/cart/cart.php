@@ -19,8 +19,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
-$currency = get_woocommerce_currency_symbol(); ?>
+ ?>
 <!-- my-cart -->
 <div class="my-cart">
 
@@ -84,7 +83,7 @@ $currency = get_woocommerce_currency_symbol(); ?>
 								<!-- /count-product -->
 
 								<div class="my-cart__current-price">
-									<?= $currency.$_product->get_price(); ?>
+									<?= $_product->get_price_html(); ?>
 								</div>
 
 								<div class="my-cart__total-price">
@@ -99,8 +98,16 @@ $currency = get_woocommerce_currency_symbol(); ?>
 						<!-- /my-cart__info -->
 
 						<!-- my-cart__remove -->
-						<a href="#" class="my-cart__remove"></a>
+						<a href="#" class="my-cart__remove">
+							<span></span>
+						</a>
 						<!-- /my-cart__remove -->
+
+						<!-- my-cart__loading -->
+						<div class="my-cart__loading">
+							<span class="my-cart__loading-spin"></span>
+						</div>
+						<!-- /my-cart__loading -->
 
 					</div>
 				</div>
@@ -111,20 +118,69 @@ $currency = get_woocommerce_currency_symbol(); ?>
 				<!-- my-cart__footer -->
 				<div class="my-cart__footer">
 
+					<?php
+					$coupons = WC()->cart->get_applied_coupons();
+					$discount = WC()->cart->get_coupon_discount_amount($coupons[0]);
+
+					$trueCoupon = count(WC()->cart->applied_coupons);
+
+					if($trueCoupon > 0){
+
+						$discount = WC()->cart->get_total_discount();
+
+						$my_cart__discount = 'visible';
+						$my_cart__define = 'hidden';
+						$my_cart__applied = 'visible';
+					} else {
+						$my_cart__discount = '';
+						$my_cart__define = '';
+						$my_cart__applied = '';
+					}
+
+					?>
+					
 					<!-- my-cart__promo-code -->
 					<div class="my-cart__promo-code">
-						<label for="promo-code">Promo code:</label>
-						<input type="text" class="site__input" name="promo-code" id="promo-code">
-						<button type="button" class="btn btn_4"><span>APPLY</span></button>
+
+						<!-- my-cart__define -->
+						<div class="my-cart__define <?= $my_cart__define ?>">
+							<label for="promo-code">Promo code:</label>
+							<input type="text" class="site__input" value="<?= $coupons[0] ?>" name="promo-code" id="promo-code">
+							<button type="button" class="btn btn_4"><span>APPLY</span></button>
+						</div>
+						<!-- /my-cart__define -->
+
+						<!-- my-cart__applied -->
+						<div class="my-cart__applied <?= $my_cart__applied ?>">
+							Promo code applied <a href="#">cancel</a>
+						</div>
+						<!-- /my-cart__applied -->
+
+						<!-- my-cart__invalid -->
+						<div class="my-cart__invalid">
+							Invalid promo code <a href="#">dismiss</a>
+						</div>
+						<!-- /my-cart__invalid -->
+
+						<!-- my-cart__promo-loading -->
+						<span class="my-cart__promo-loading"></span>
+						<!-- /my-cart__promo-loading -->
+
 					</div>
 					<!-- /my-cart__promo-code -->
 
 					<div>
 
-						<span class="my-cart__total">SUBTOTAL: <span><?= WC()->cart->get_cart_total(); ?></span></span>
+						<dl class="my-cart__discount <?= $my_cart__discount ?>">
+							<dt>Promo code discount:</dt>
+							<dd><?= $discount ?></dd>
+						</dl>
+						<dl class="my-cart__total">
+							<dt>SUBTOTAL:</dt>
+							<dd><?= WC()->cart->get_cart_total(); ?></dd>
+						</dl>
 
 						<a href="<?php echo esc_url( wc_get_checkout_url() ) ;?>" class="btn btn_5"><span>PROCEED TO CHECKOUT</span></a>
-
 					</div>
 
 				</div>

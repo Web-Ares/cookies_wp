@@ -103,5 +103,9 @@ function custom_override_shipping_fields( $fields ) {
     return $fields;
 }
 add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
+
+
+
+
 require_once( TEMPLATEINC . '/template.php' );
 require_once( TEMPLATEINC . '/actions.php' );

@@ -24,8 +24,8 @@ global $product;
 
 $productID = $product->get_id();
 $productTitle = $product->get_title();
-$price = $product->get_price();
-$currency = get_woocommerce_currency_symbol();
+$price = $product->get_price_html();
+
 $weight = $product->get_weight();
 $dimensions = $product->get_attribute('Prepacking type');
 if(!empty($dimensions)){
@@ -46,7 +46,7 @@ if(!empty($dimensions)){
 			<h2 class="site__title site__title_2"><?= $productTitle; ?></h2>
 
 			<!-- product-single__price -->
-			<span class="product-single__price"><?= $currency.$price ?></span>
+			<span class="product-single__price"><?= $price ?></span>
 			<!-- /product-single__price -->
 
 			<?php
@@ -94,7 +94,7 @@ if(!empty($dimensions)){
 				<?php if(get_field('ingridients_text')): ?>
 					<a href="#" class="product-single__show popup__open" data-popup="ingredients-info">Show Nutrition Information and Ingredients</a>
 				<?php endif; ?>
-				
+
 				<!-- product-single__quantity -->
 				<div class="product-single__quantity">
 					<form action="#">

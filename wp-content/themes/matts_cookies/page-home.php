@@ -21,7 +21,7 @@ get_header(); ?>
         <!-- store-finder__layout -->
         <div class="store-finders__layout">
 
-            <form action="#">
+
 
                 <!-- store-finders__fields -->
                 <div class="store-finders__fields">
@@ -50,7 +50,7 @@ get_header(); ?>
                 </div>
                 <!-- /store-finders__fields -->
 
-            </form>
+         
 
         </div>
         <!-- /store-finder__layout -->
