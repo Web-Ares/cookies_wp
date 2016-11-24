@@ -105,7 +105,12 @@ function custom_override_shipping_fields( $fields ) {
 add_filter( 'woocommerce_ship_to_different_address_checked', '__return_false' );
 
 
+add_filter( 'wc_add_to_cart_message', 'bbloomer_custom_add_to_cart_message' );
 
+function bbloomer_custom_add_to_cart_message() {
+
+    return '';
+}
 
 require_once( TEMPLATEINC . '/template.php' );
 require_once( TEMPLATEINC . '/actions.php' );

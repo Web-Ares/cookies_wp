@@ -20,3 +20,7 @@ Version: 1.0
 .woocommerce-info {
     display: none;
 }
+
+.woocommerce-message{
+    display:  none;
+}
