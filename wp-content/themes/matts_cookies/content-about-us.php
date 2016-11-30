@@ -55,8 +55,7 @@
     <!-- real-stuff -->
     <div class="real-stuff" data-scroll="scroll">
 
-        <!-- real-stuff__layout -->
-        <div class="real-stuff__layout">
+        
 
             <!-- real-stuff__title -->
             <h2 class="real-stuff__title">
@@ -99,6 +98,9 @@
             </div>
             <!-- /real-stuff__products -->
 
+        <!-- real-stuff__layout -->
+        <div class="real-stuff__layout">
+            
             <!-- real-stuff__ingredients -->
             <div class="real-stuff__ingredients">
 
