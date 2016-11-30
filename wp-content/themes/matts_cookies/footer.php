@@ -132,11 +132,7 @@
 
                         <!-- site__footer-menu -->
                         <ul class="site__footer-menu">
-
-                            <li>
-                                <a  href="<?= get_the_permalink(85) ?>"><?= get_the_title(85) ?></a>
-                            </li>
-
+                            
                             <li>
                                 <?php $link = get_field('phone_in_header_for_mobile','options'); ?>
                                 CALL US:<a href="tel:<?= $link ?>"> <?= $link ?></a>
