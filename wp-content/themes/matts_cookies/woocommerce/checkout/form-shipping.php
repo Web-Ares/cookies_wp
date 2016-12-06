@@ -86,6 +86,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<!-- /checkout__fields -->
 
 					<!-- checkout__fields -->
+					<fieldset class="checkout__fields checkout__fields-hide">
+						<div><label class="site__label" for="shipping_country">Country</label></div>
+						<div><input class="site__input"  data-required value="<?= $checkout->get_value('shipping_country') ?>" type="text" id="shipping_country" name="shipping_country"></div>
+					</fieldset>
+					<!-- /checkout__fields -->
+
+					<!-- checkout__fields -->
 					<fieldset class="checkout__fields">
 						<div><label class="site__label" for="shipping_city">CITY & STATE</label></div>
 						<div class="checkout__fields__two">

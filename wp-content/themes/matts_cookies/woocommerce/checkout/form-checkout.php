@@ -30,12 +30,12 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 ?>
 
 <!-- checkout -->
-<div class="checkout">
+<div>
 
 	<!-- checkout__layout -->
 	<div class="checkout__layout">
 
-		<form name="checkout" method="post" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
+		<form name="checkout" class="checkout woocommerce-checkout" method="post" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 
 			<!-- checkout__form -->
 			<div class="checkout__form">
@@ -65,7 +65,11 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 			</div>
 			<!-- /checkout__form -->
 
-			<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+			<div class="my-cart__review">
+				<h2 class="site__title site__title_4">Please review YOUR order</h2>
+				<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+				<a href="#" class="btn btn_5 checkout__back"><span>back</span></a>
+			</div>
 
 		</form>
 

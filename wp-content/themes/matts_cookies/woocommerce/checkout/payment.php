@@ -44,14 +44,13 @@ if ( ! is_ajax() ) {
 <?php wc_get_template( 'checkout/terms.php' ); ?>
 
 <?php do_action( 'woocommerce_review_order_before_submit' ); ?>
+	
+	<button name="woocommerce_checkout_place_order" id="place_order" type="submit" class="btn btn_5 checkout__proceed-payment" >PROCEED TO Payment</button>
 
-<button name="woocommerce_checkout_place_order" id="place_order" type="submit" class="btn btn_5" >PROCEED TO Payment</button>
+
 <?php do_action( 'woocommerce_review_order_after_submit' ); ?>
 
 <?php wp_nonce_field( 'woocommerce-process_checkout' ); ?>
-
-	</div>
-	<!-- /my-cart__review -->
 
 <?php
 if ( ! is_ajax() ) {

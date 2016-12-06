@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<div class="my-cart__head">
 					<div class="my-cart__caption">product</div>
-					<div class="my-cart__caption">Q-ty</div>
+					<div class="my-cart__caption">Qty</div>
 					<div class="my-cart__caption">price</div>
 					<div class="my-cart__caption">TOTAL</div>
 				</div>

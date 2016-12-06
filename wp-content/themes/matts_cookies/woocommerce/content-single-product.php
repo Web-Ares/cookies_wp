@@ -98,7 +98,7 @@ if(!empty($dimensions)){
 				<!-- product-single__quantity -->
 				<div class="product-single__quantity">
 					<form action="#">
-						<span>Q-ty</span>
+						<span>Qty</span>
 
 						<!-- product-single__quantity-change -->
 						<div class="count-product product-single__quantity-change">

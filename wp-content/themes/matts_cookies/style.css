@@ -1,6 +1,5 @@
 /*
 Theme Name: Matt's Cookies
-Author: Websters
 Version: 1.0
 */
 .wpcf7-response-output{
@@ -13,14 +12,25 @@ Version: 1.0
 #ship-to-different-address{
     display: none !important;
 }
-/*.woocommerce-error {*/
-    /*display: none;*/
-/*}*/
+.woocommerce-error {
+    display: none;
+}
 
-/*.woocommerce-info {*/
-    /*display: none;*/
-/*}*/
+.woocommerce-info {
+    display: none;
+}
 
-/*.woocommerce-message{*/
-    /*display:  none;*/
-/*}*/
+.woocommerce-message{
+    display:  none;
+}
+
+a#custom_update_shipping {
+    position: absolute;
+    z-index: 10000;
+}
+p.theme-author {
+    display: none;
+}
+.checkout__fields-hide{
+    display: none !important;
+}

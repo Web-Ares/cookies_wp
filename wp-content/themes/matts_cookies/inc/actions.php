@@ -454,6 +454,7 @@ add_action('wp_ajax_remove_coupon_to_order','remove_coupon_to_order');
 add_action('wp_ajax_nopriv_remove_coupon_to_order', 'remove_coupon_to_order');
 
 add_filter( 'gform_submit_button', 'form_submit_button', 10, 2 );
+
 function form_submit_button( $button, $form ) {
 
     if($form['id'] == 1){
@@ -462,5 +463,19 @@ function form_submit_button( $button, $form ) {
 
 }
 
+
+function custom_update_form(){
+
+
+    $json_data = '{
+        "subtotal": "12"
+    }';
+    echo $json_data;
+    exit;
+}
+
+add_action('wp_ajax_custom_update_form','custom_update_form');
+
+add_action('wp_ajax_nopriv_custom_update_form', 'custom_update_form');
 
 ?>

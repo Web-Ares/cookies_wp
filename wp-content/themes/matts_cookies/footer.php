@@ -430,5 +430,15 @@ elseif(is_order_received_page()){ ?>
 
 <?php wp_footer(); ?>
 
+<!--<script>-->
+<!--    $('#custom_update_shipping').on( {-->
+<!--        click: function() {-->
+<!--            console.log('click');-->
+<!--            $( 'body' ).trigger( 'update_checkout' );-->
+<!--            return false;-->
+<!--        }-->
+<!--    } );-->
+<!--</script>-->
+
 </body>
 </html>
