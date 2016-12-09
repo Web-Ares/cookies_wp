@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- checkout__fields -->
 		<fieldset class="checkout__fields checkout__fields-hide">
 			<div><label class="site__label" for="billing_country">Country</label></div>
-			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_country') ?>" type="text" id="billing_country" name="billing_country"></div>
+			<div><input class="site__input"  data-required value="US" type="text" id="billing_country" name="billing_country"></div>
 		</fieldset>
 		<!-- /checkout__fields -->
 		

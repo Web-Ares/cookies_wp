@@ -204,7 +204,8 @@ function add_js()
     }
 
 }
-wp_enqueue_style('style', get_template_directory_uri().'/style.css');
+$var = time();
+wp_enqueue_style('style', get_template_directory_uri().'/style.css',false, filemtime(get_template_directory_uri().'/style.css'));
 
 if ( function_exists( 'add_theme_support' ) ) add_theme_support( 'post-thumbnails' );
 register_nav_menus( array(
