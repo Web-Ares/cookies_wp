@@ -81,7 +81,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- checkout__fields -->
 		<fieldset class="checkout__fields">
 			<div><label class="site__label" for="billing_address_2">ADDRESS</label></div>
-			<div><input class="site__input"  data-required value="<?= $checkout->get_value('billing_address_2') ?>" type="text" id="billing_address_2" name="billing_address_2"></div>
+			<div><input class="site__input"   value="<?= $checkout->get_value('billing_address_2') ?>" type="text" id="billing_address_2" name="billing_address_2"></div>
 		</fieldset>
 		<!-- /checkout__fields -->
 
@@ -111,7 +111,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 								?>
 
-								<option  <?= $selected ?> value="<?= $key ?>"><?= $state ?></option>
+								<option  <?= $selected ?> value="<?= $key ?>"><?= $key ?></option>
 
 							<?php } ?>
 

@@ -49,7 +49,7 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 					<!-- nice-checkbox -->
 					<div class="nice-checkbox checkout__show-billing">
 						<input type="checkbox" name="billing" checked id="billing">
-						<label for="billing">same as SHIPPING</label>
+						<label for="billing">same as Billing</label>
 					</div>
 					<!-- /nice-checkbox -->
 
