@@ -138,7 +138,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 
 					?>
-					
+
 					<!-- my-cart__promo-code -->
 					<div class="my-cart__promo-code">
 
